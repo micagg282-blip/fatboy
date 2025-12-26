@@ -52,31 +52,30 @@ export default function Home() {
         <div style={{ maxWidth: "700px" }}>
           <h2>Hola {nombre}</h2>
 
-          <p style={{ marginTop: "20px" }}>
-            Antes de avanzar, quiero hacerte algunas preguntas.
+          <p>
+            Antes de avanzar, quiero que pienses un momento en vos dentro del
+            trabajo.
           </p>
 
-          <p style={{ marginTop: "20px" }}>
-            No tenés que responder perfecto.  
-            Solo con sinceridad.
-          </p>
+          <p>Respondé con sinceridad:</p>
 
-          <div style={{ marginTop: "30px" }}>
-            <p>1. ¿Cómo te sentís hoy en tu trabajo?</p>
-            <textarea style={{ width: "100%", height: "80px" }} />
+          <textarea
+            placeholder="¿Cómo te sentís hoy en tu trabajo?"
+            style={{ width: "100%", height: "80px", marginTop: "10px" }}
+          />
 
-            <p style={{ marginTop: "20px" }}>
-              2. ¿Sentís que podés expresarte con libertad?
-            </p>
-            <textarea style={{ width: "100%", height: "80px" }} />
+          <textarea
+            placeholder="¿Sentís que podés expresarte con libertad?"
+            style={{ width: "100%", height: "80px", marginTop: "20px" }}
+          />
 
-            <p style={{ marginTop: "20px" }}>
-              3. ¿Qué te gustaría mejorar de tu experiencia laboral?
-            </p>
-            <textarea style={{ width: "100%", height: "80px" }} />
-          </div>
+          <textarea
+            placeholder="¿Qué te gustaría mejorar?"
+            style={{ width: "100%", height: "80px", marginTop: "20px" }}
+          />
 
           <button
+            onClick={() => setPaso(3)}
             style={{
               marginTop: "30px",
               background: "#000",
@@ -86,10 +85,41 @@ export default function Home() {
               cursor: "pointer",
             }}
           >
-            Guardar y continuar
+            Continuar
           </button>
+        </div>
+      )}
 
-          <p style={{ marginTop: "40px", fontStyle: "italic" }}>
+      {paso === 3 && (
+        <div style={{ maxWidth: "700px" }}>
+          <h2>Comunicación y vínculos</h2>
+
+          <p style={{ marginTop: "20px" }}>
+            Ahora pensemos en cómo te relacionás con las personas que te rodean.
+          </p>
+
+          <p>Respondé con calma:</p>
+
+          <textarea
+            placeholder="¿Cómo es tu comunicación con tus compañeros?"
+            style={{ width: "100%", height: "80px", marginTop: "10px" }}
+          />
+
+          <textarea
+            placeholder="¿Sentís que sos escuchado/a?"
+            style={{ width: "100%", height: "80px", marginTop: "20px" }}
+          />
+
+          <textarea
+            placeholder="¿Qué te gustaría cambiar en la forma de comunicarte?"
+            style={{ width: "100%", height: "80px", marginTop: "20px" }}
+          />
+
+          <p style={{ marginTop: "30px" }}>
+            Gracias por tomarte este espacio.
+          </p>
+
+          <p style={{ fontStyle: "italic", marginTop: "20px" }}>
             — Otto
           </p>
         </div>
