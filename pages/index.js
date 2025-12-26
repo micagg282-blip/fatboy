@@ -1,17 +1,46 @@
 import { useState } from "react";
 
+const preguntas = [
+  {
+    texto: "Para empezar… ¿cómo te sentís hoy en tu trabajo?",
+    placeholder: "Podés escribir lo que sientas",
+  },
+  {
+    texto: "¿Qué es lo que más te cuesta en este momento?",
+    placeholder: "Ej: estrés, motivación, comunicación…",
+  },
+  {
+    texto: "¿Qué te gustaría que cambie o mejore?",
+    placeholder: "No tiene que ser algo perfecto",
+  },
+  {
+    texto: "¿Qué esperás encontrar en este espacio?",
+    placeholder: "Estoy acá para acompañarte",
+  },
+];
+
 export default function Home() {
-  const [name, setName] = useState("");
   const [step, setStep] = useState(0);
+  const [name, setName] = useState("");
+  const [answers, setAnswers] = useState([]);
+  const [input, setInput] = useState("");
+
+  const handleNext = () => {
+    if (!input) return;
+
+    setAnswers([...answers, input]);
+    setInput("");
+    setStep(step + 1);
+  };
 
   return (
     <main style={styles.container}>
       <div style={styles.card}>
         {step === 0 && (
           <>
-            <h1 style={styles.title}>Hola 👋</h1>
+            <h1 style={styles.title}>Hola 🌿</h1>
             <p style={styles.text}>
-              Soy Otto. Estoy acá para acompañarte en tu camino laboral.
+              Soy Otto. Estoy acá para acompañarte.
             </p>
             <button style={styles.button} onClick={() => setStep(1)}>
               Continuar
@@ -21,12 +50,10 @@ export default function Home() {
 
         {step === 1 && (
           <>
-            <p style={styles.text}>
-              Antes de empezar, ¿cómo te llamás?
-            </p>
+            <p style={styles.text}>¿Cómo te llamás?</p>
             <input
               style={styles.input}
-              placeholder="Escribí tu nombre..."
+              placeholder="Tu nombre"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -34,30 +61,38 @@ export default function Home() {
               style={styles.button}
               onClick={() => name && setStep(2)}
             >
-              Seguir
+              Empezar
             </button>
           </>
         )}
 
-        {step === 2 && (
+        {step >= 2 && step < preguntas.length + 2 && (
           <>
-            <h2 style={styles.title}>Hola {name} 🌿</h2>
+            <h2 style={styles.title}>Hola {name} 🤍</h2>
             <p style={styles.text}>
-              Este espacio fue creado para acompañarte, ayudarte a ordenar ideas
-              y avanzar con más claridad y confianza.
+              {preguntas[step - 2].texto}
             </p>
-            <button style={styles.button} onClick={() => setStep(3)}>
+            <input
+              style={styles.input}
+              placeholder={preguntas[step - 2].placeholder}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <button style={styles.button} onClick={handleNext}>
               Continuar
             </button>
           </>
         )}
 
-        {step === 3 && (
+        {step === preguntas.length + 2 && (
           <>
-            <h2 style={styles.title}>✨ Bienvenida a Fatboy</h2>
+            <h2 style={styles.title}>Gracias por compartir 💛</h2>
             <p style={styles.text}>
-              Estoy acá para ayudarte.  
-              Cuando quieras, decime en qué te gustaría trabajar hoy.
+              Lo que escribiste es importante.  
+              Estoy acá para acompañarte paso a paso.
+            </p>
+            <p style={styles.text}>
+              Cuando quieras, podemos seguir trabajando juntos.
             </p>
           </>
         )}
@@ -71,9 +106,8 @@ const styles = {
     minHeight: "100vh",
     background: "#0f0f0f",
     display: "flex",
-    alignItems: "center",
     justifyContent: "center",
-    fontFamily: "system-ui, sans-serif",
+    alignItems: "center",
     padding: "20px",
   },
   card: {
@@ -83,8 +117,8 @@ const styles = {
     borderRadius: "16px",
     maxWidth: "480px",
     width: "100%",
-    boxShadow: "0 0 40px rgba(0,0,0,0.4)",
     textAlign: "center",
+    boxShadow: "0 0 40px rgba(0,0,0,0.4)",
   },
   title: {
     fontSize: "2rem",
@@ -92,7 +126,6 @@ const styles = {
   },
   text: {
     fontSize: "1.1rem",
-    lineHeight: "1.6",
     marginBottom: "1.5rem",
     color: "#ccc",
   },
@@ -105,12 +138,12 @@ const styles = {
     fontSize: "1rem",
   },
   button: {
-    background: "#ffffff",
+    background: "#fff",
     color: "#000",
     border: "none",
     padding: "12px 24px",
     borderRadius: "8px",
-    fontSize: "1rem",
     cursor: "pointer",
+    fontSize: "1rem",
   },
 };
