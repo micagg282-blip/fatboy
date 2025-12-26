@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [nombre, setNombre] = useState("");
-  const [iniciado, setIniciado] = useState(false);
+  const [paso, setPaso] = useState(1);
 
   return (
     <main
@@ -17,79 +17,79 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      {!iniciado ? (
+      {paso === 1 && (
         <div style={{ maxWidth: "500px" }}>
-          <h1 style={{ fontSize: "42px" }}>Fatboy</h1>
-          <h2 style={{ fontWeight: "400", marginBottom: "40px" }}>
-            Espacio de acompañamiento laboral
-          </h2>
+          <h1>Fatboy</h1>
+          <h2>Espacio de acompañamiento laboral</h2>
 
-          <p style={{ fontSize: "18px", marginBottom: "20px" }}>
-            Hola, soy Otto.
-          </p>
-
-          <p style={{ marginBottom: "20px" }}>
-            ¿Cómo te llamás?
-          </p>
+          <p>Hola, soy Otto.</p>
+          <p>¿Cómo te llamás?</p>
 
           <input
             type="text"
-            placeholder="Escribí tu nombre"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            style={{
-              padding: "10px",
-              fontSize: "16px",
-              width: "100%",
-              marginBottom: "20px",
-            }}
+            placeholder="Tu nombre"
+            style={{ padding: "10px", width: "100%", marginBottom: "20px" }}
           />
 
           <button
-            onClick={() => setIniciado(true)}
+            onClick={() => setPaso(2)}
             style={{
-              backgroundColor: "#000",
+              background: "#000",
               color: "#fff",
-              border: "none",
               padding: "12px 25px",
+              border: "none",
               cursor: "pointer",
             }}
           >
             Entrar
           </button>
         </div>
-      ) : (
+      )}
+
+      {paso === 2 && (
         <div style={{ maxWidth: "700px" }}>
-          <h1>Hola {nombre} 👋</h1>
+          <h2>Hola {nombre}</h2>
 
-          <p style={{ fontSize: "18px", marginTop: "20px" }}>
-            Soy Otto.  
-            Estoy acá para acompañarte en tu camino laboral.
+          <p style={{ marginTop: "20px" }}>
+            Antes de avanzar, quiero hacerte algunas preguntas.
           </p>
 
-          <p style={{ fontSize: "18px", marginTop: "20px" }}>
-            Este espacio es personal, confidencial y a tu ritmo.
-            No hay respuestas correctas, solo procesos.
+          <p style={{ marginTop: "20px" }}>
+            No tenés que responder perfecto.  
+            Solo con sinceridad.
           </p>
 
-          <p style={{ marginTop: "30px" }}>
-            Cuando estés lista, podemos empezar.
-          </p>
+          <div style={{ marginTop: "30px" }}>
+            <p>1. ¿Cómo te sentís hoy en tu trabajo?</p>
+            <textarea style={{ width: "100%", height: "80px" }} />
+
+            <p style={{ marginTop: "20px" }}>
+              2. ¿Sentís que podés expresarte con libertad?
+            </p>
+            <textarea style={{ width: "100%", height: "80px" }} />
+
+            <p style={{ marginTop: "20px" }}>
+              3. ¿Qué te gustaría mejorar de tu experiencia laboral?
+            </p>
+            <textarea style={{ width: "100%", height: "80px" }} />
+          </div>
 
           <button
             style={{
-              backgroundColor: "#000",
+              marginTop: "30px",
+              background: "#000",
               color: "#fff",
-              border: "none",
               padding: "12px 25px",
-              marginTop: "20px",
+              border: "none",
               cursor: "pointer",
             }}
           >
-            Comenzar mi proceso
+            Guardar y continuar
           </button>
 
-          <p style={{ marginTop: "50px", fontStyle: "italic" }}>
+          <p style={{ marginTop: "40px", fontStyle: "italic" }}>
             — Otto
           </p>
         </div>
