@@ -114,46 +114,61 @@ export default function Home() {
 const styles = {
   container: {
     minHeight: "100vh",
-    background: "#0f0f0f",
+    background: "linear-gradient(135deg, #0f0f0f, #1a1a1a)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     padding: "20px",
+    fontFamily: "Arial, sans-serif",
   },
+
   card: {
     background: "#111",
     color: "#fff",
-    padding: "40px",
-    borderRadius: "16px",
-    maxWidth: "500px",
+    padding: "50px 40px",
+    borderRadius: "20px",
+    maxWidth: "520px",
     width: "100%",
     textAlign: "center",
-    boxShadow: "0 0 40px rgba(0,0,0,0.4)",
+    boxShadow: "0 0 60px rgba(0,0,0,0.6)",
+    border: "1px solid rgba(255,255,255,0.05)",
   },
+
   title: {
-    fontSize: "2rem",
+    fontSize: "2.2rem",
     marginBottom: "1rem",
+    fontWeight: "600",
+    letterSpacing: "1px",
   },
+
   text: {
     fontSize: "1.1rem",
-    marginBottom: "1.5rem",
+    marginBottom: "1.4rem",
     color: "#ccc",
+    lineHeight: "1.6",
   },
+
   input: {
     width: "100%",
-    padding: "12px",
-    borderRadius: "8px",
+    padding: "14px",
+    borderRadius: "10px",
     border: "none",
-    marginBottom: "1rem",
+    marginBottom: "1.2rem",
     fontSize: "1rem",
+    background: "#1c1c1c",
+    color: "#fff",
+    outline: "none",
   },
+
   button: {
     background: "#fff",
     color: "#000",
     border: "none",
-    padding: "12px 24px",
-    borderRadius: "8px",
+    padding: "14px 28px",
+    borderRadius: "30px",
     cursor: "pointer",
     fontSize: "1rem",
+    fontWeight: "600",
+    transition: "all 0.3s ease",
   },
 };
