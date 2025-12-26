@@ -7,52 +7,32 @@ export default function Login() {
 
   const handleLogin = () => {
     if (!name) return;
-    localStorage.setItem("fatboy_user", name);
-    router.push("/");
+    localStorage.setItem("userName", name);
+    localStorage.setItem("level", "1");
+    router.push("/dashboard");
   };
 
   return (
-    <div style={styles.container}>
-      <h1>Fatboy</h1>
-      <p>Espacio de acompañamiento laboral</p>
+    <div className="container">
+      <h1>Bienvenida</h1>
+      <p>Decime tu nombre para comenzar</p>
 
       <input
-        style={styles.input}
-        placeholder="Escribí tu nombre"
+        type="text"
+        placeholder="Tu nombre..."
         value={name}
         onChange={(e) => setName(e.target.value)}
+        style={{
+          padding: "10px",
+          fontSize: "16px",
+          marginTop: "20px",
+          width: "250px",
+        }}
       />
 
-      <button style={styles.button} onClick={handleLogin}>
+      <button className="button" onClick={handleLogin}>
         Entrar
       </button>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "#000",
-    color: "#fff",
-    fontFamily: "sans-serif",
-  },
-  input: {
-    padding: "12px",
-    marginTop: "20px",
-    fontSize: "16px",
-    width: "250px",
-  },
-  button: {
-    marginTop: "20px",
-    padding: "12px 20px",
-    background: "#fff",
-    color: "#000",
-    border: "none",
-    cursor: "pointer",
-  },
-};

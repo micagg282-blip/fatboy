@@ -8,14 +8,9 @@ export default function Home() {
         No es una app más. Es un proceso.
       </p>
 
-      <button className="button">
-        Comenzar
-      </button>
-
-      <div className="otto">
-        <p>Hola, soy Otto.</p>
-        <p>Voy a acompañarte paso a paso.</p>
-      </div>
-    </div>
-  );
-}
+     <button
+  className="button"
+  onClick={() => window.location.href = "/login"}
+>
+  Comenzar
+</button>
