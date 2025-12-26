@@ -1,43 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
-  const [answer, setAnswer] = useState("");
+  const [input, setInput] = useState("");
 
-  const levels = [
-    {
-      title: "Conocerte",
-      question: "¿Cómo te sentís hoy en tu trabajo?",
-    },
-    {
-      title: "Conciencia",
-      question: "¿Qué es lo que más te está costando últimamente?",
-    },
-    {
-      title: "Reflexión",
-      question: "¿Qué te gustaría que mejore en tu día a día laboral?",
-    },
-    {
-      title: "Compromiso",
-      question: "¿Qué pequeño cambio podrías intentar esta semana?",
-    },
-  ];
+  useEffect(() => {
+    const savedName = localStorage.getItem("fatboy_name");
+    if (savedName) {
+      setName(savedName);
+      setStep(2);
+    }
+  }, []);
+
+  const next = () => setStep(step + 1);
+
+  const saveName = () => {
+    if (!input) return;
+    localStorage.setItem("fatboy_name", input);
+    setName(input);
+    next();
+  };
 
   return (
-    <main style={styles.container}>
+    <div style={styles.container}>
       <div style={styles.card}>
+        <div style={styles.progress}>
+          <div
+            style={{
+              ...styles.progressBar,
+              width: `${(step / 4) * 100}%`,
+            }}
+          />
+        </div>
+
         {step === 0 && (
           <>
             <h1 style={styles.title}>Fatboy</h1>
             <p style={styles.text}>
-              Espacio de acompañamiento laboral
+              Espacio de acompañamiento laboral.
             </p>
-            <p style={styles.text}>
-              Este espacio fue creado para acompañarte, ayudarte a pensar
-              y crecer dentro de tu trabajo.
-            </p>
-            <button style={styles.button} onClick={() => setStep(1)}>
+            <button style={styles.button} onClick={next}>
               Comenzar
             </button>
           </>
@@ -45,71 +48,67 @@ export default function Home() {
 
         {step === 1 && (
           <>
+            <p style={styles.text}>Hola, soy Otto.</p>
             <p style={styles.text}>
-              Hola, soy Otto 🤍 <br />
-              Estoy acá para acompañarte.
+              Estoy acá para acompañarte y ayudarte a crecer.
             </p>
-            <p style={styles.text}>¿Cómo te llamás?</p>
             <input
               style={styles.input}
-              placeholder="Tu nombre"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              placeholder="¿Cómo te llamás?"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
             />
-            <button
-              style={styles.button}
-              onClick={() => name && setStep(2)}
-            >
+            <button style={styles.button} onClick={saveName}>
               Continuar
             </button>
           </>
         )}
 
-        {step >= 2 && step < levels.length + 2 && (
+        {step === 2 && (
           <>
-            <h2 style={styles.title}>
-              Hola {name} 🤍
-            </h2>
+            <p style={styles.text}>Hola {name} 👋</p>
             <p style={styles.text}>
-              {levels[step - 2].question}
+              A partir de ahora voy a acompañarte en tu camino laboral.
             </p>
-            <input
-              style={styles.input}
-              placeholder="Podés escribir con libertad"
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-            />
-            <button
-              style={styles.button}
-              onClick={() => {
-                setAnswer("");
-                setStep(step + 1);
-              }}
-            >
+            <button style={styles.button} onClick={next}>
+              Seguir
+            </button>
+          </>
+        )}
+
+        {step === 3 && (
+          <>
+            <p style={styles.text}>
+              Vamos a trabajar sobre:
+            </p>
+            <ul style={styles.list}>
+              <li>✔ Comunicación</li>
+              <li>✔ Organización</li>
+              <li>✔ Objetivos</li>
+              <li>✔ Crecimiento profesional</li>
+            </ul>
+            <button style={styles.button} onClick={next}>
               Continuar
             </button>
           </>
         )}
 
-        {step === levels.length + 2 && (
+        {step === 4 && (
           <>
-            <h2 style={styles.title}>Gracias 🤍</h2>
             <p style={styles.text}>
-              Lo que escribiste es importante.
+              Cuando quieras, empezamos.
             </p>
-            <p style={styles.text}>
-              Este espacio está pensado para acompañarte,
-              sin juicios y a tu ritmo.
-            </p>
-            <p style={styles.text}>
-              Podés volver cuando lo necesites.
+            <p style={styles.textSmall}>
+              Este espacio es tuyo.
             </p>
           </>
         )}
       </div>
-    </main>
+    </div>
   );
 }
+
+/* ================== ESTILOS ================== */
 
 const styles = {
   container: {
@@ -118,7 +117,6 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: "20px",
     fontFamily: "Arial, sans-serif",
   },
 
@@ -131,21 +129,22 @@ const styles = {
     width: "100%",
     textAlign: "center",
     boxShadow: "0 0 60px rgba(0,0,0,0.6)",
-    border: "1px solid rgba(255,255,255,0.05)",
   },
 
   title: {
-    fontSize: "2.2rem",
+    fontSize: "2.3rem",
     marginBottom: "1rem",
-    fontWeight: "600",
-    letterSpacing: "1px",
   },
 
   text: {
     fontSize: "1.1rem",
-    marginBottom: "1.4rem",
+    marginBottom: "1.3rem",
     color: "#ccc",
-    lineHeight: "1.6",
+  },
+
+  textSmall: {
+    fontSize: "0.95rem",
+    color: "#888",
   },
 
   input: {
@@ -154,21 +153,39 @@ const styles = {
     borderRadius: "10px",
     border: "none",
     marginBottom: "1.2rem",
-    fontSize: "1rem",
     background: "#1c1c1c",
     color: "#fff",
-    outline: "none",
+    fontSize: "1rem",
   },
 
   button: {
     background: "#fff",
     color: "#000",
     border: "none",
-    padding: "14px 28px",
+    padding: "14px 30px",
     borderRadius: "30px",
     cursor: "pointer",
-    fontSize: "1rem",
     fontWeight: "600",
-    transition: "all 0.3s ease",
+  },
+
+  progress: {
+    height: "6px",
+    background: "#222",
+    borderRadius: "10px",
+    marginBottom: "30px",
+    overflow: "hidden",
+  },
+
+  progressBar: {
+    height: "100%",
+    background: "#fff",
+    transition: "0.4s",
+  },
+
+  list: {
+    textAlign: "left",
+    color: "#ccc",
+    marginBottom: "20px",
+    lineHeight: "1.6",
   },
 };
