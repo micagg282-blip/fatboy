@@ -1,22 +1,19 @@
-"use client";
-
 import { useState } from "react";
 
 export default function Home() {
+  const [name, setName] = useState("");
   const [step, setStep] = useState(0);
-
-  const next = () => setStep(step + 1);
 
   return (
     <main style={styles.container}>
       <div style={styles.card}>
         {step === 0 && (
           <>
-            <h1 style={styles.title}>Hola, soy Otto 👋</h1>
+            <h1 style={styles.title}>Hola 👋</h1>
             <p style={styles.text}>
-              Estoy acá para acompañarte en tu camino laboral.
+              Soy Otto. Estoy acá para acompañarte en tu camino laboral.
             </p>
-            <button style={styles.button} onClick={next}>
+            <button style={styles.button} onClick={() => setStep(1)}>
               Continuar
             </button>
           </>
@@ -25,10 +22,18 @@ export default function Home() {
         {step === 1 && (
           <>
             <p style={styles.text}>
-              Este espacio fue creado para ayudarte a ordenar ideas,
-              fortalecer tu comunicación y avanzar con más seguridad.
+              Antes de empezar, ¿cómo te llamás?
             </p>
-            <button style={styles.button} onClick={next}>
+            <input
+              style={styles.input}
+              placeholder="Escribí tu nombre..."
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <button
+              style={styles.button}
+              onClick={() => name && setStep(2)}
+            >
               Seguir
             </button>
           </>
@@ -36,11 +41,13 @@ export default function Home() {
 
         {step === 2 && (
           <>
+            <h2 style={styles.title}>Hola {name} 🌿</h2>
             <p style={styles.text}>
-              No estás sola. Vamos paso a paso, a tu ritmo.
+              Este espacio fue creado para acompañarte, ayudarte a ordenar ideas
+              y avanzar con más claridad y confianza.
             </p>
-            <button style={styles.button} onClick={next}>
-              Empezar
+            <button style={styles.button} onClick={() => setStep(3)}>
+              Continuar
             </button>
           </>
         )}
@@ -49,6 +56,7 @@ export default function Home() {
           <>
             <h2 style={styles.title}>✨ Bienvenida a Fatboy</h2>
             <p style={styles.text}>
+              Estoy acá para ayudarte.  
               Cuando quieras, decime en qué te gustaría trabajar hoy.
             </p>
           </>
@@ -73,7 +81,7 @@ const styles = {
     color: "#fff",
     padding: "40px",
     borderRadius: "16px",
-    maxWidth: "500px",
+    maxWidth: "480px",
     width: "100%",
     boxShadow: "0 0 40px rgba(0,0,0,0.4)",
     textAlign: "center",
@@ -85,8 +93,16 @@ const styles = {
   text: {
     fontSize: "1.1rem",
     lineHeight: "1.6",
-    marginBottom: "2rem",
+    marginBottom: "1.5rem",
     color: "#ccc",
+  },
+  input: {
+    width: "100%",
+    padding: "12px",
+    borderRadius: "8px",
+    border: "none",
+    marginBottom: "1rem",
+    fontSize: "1rem",
   },
   button: {
     background: "#ffffff",
