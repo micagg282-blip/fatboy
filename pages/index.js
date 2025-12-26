@@ -3,62 +3,58 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
-  const [input, setInput] = useState("");
+  const [goal, setGoal] = useState("");
+  const [level, setLevel] = useState("");
 
   useEffect(() => {
-    const savedName = localStorage.getItem("fatboy_name");
-    if (savedName) {
-      setName(savedName);
-      setStep(2);
+    const saved = localStorage.getItem("fatboy_user");
+    if (saved) {
+      const data = JSON.parse(saved);
+      setName(data.name);
+      setGoal(data.goal);
+      setLevel(data.level);
+      setStep(4);
     }
   }, []);
 
-  const next = () => setStep(step + 1);
+  const saveData = (data) => {
+    localStorage.setItem("fatboy_user", JSON.stringify(data));
+  };
 
-  const saveName = () => {
-    if (!input) return;
-    localStorage.setItem("fatboy_name", input);
-    setName(input);
-    next();
+  const calculateLevel = (goal) => {
+    if (goal.includes("primer")) return "Inicial";
+    if (goal.includes("mejor")) return "Intermedio";
+    return "Avanzado";
   };
 
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <div style={styles.progress}>
-          <div
-            style={{
-              ...styles.progressBar,
-              width: `${(step / 4) * 100}%`,
-            }}
-          />
-        </div>
+        <Progress step={step} />
 
         {step === 0 && (
           <>
             <h1 style={styles.title}>Fatboy</h1>
-            <p style={styles.text}>
-              Espacio de acompañamiento laboral.
-            </p>
-            <button style={styles.button} onClick={next}>
-              Comenzar
+            <p style={styles.text}>Acompañamiento laboral inteligente.</p>
+            <button style={styles.button} onClick={() => setStep(1)}>
+              Empezar
             </button>
           </>
         )}
 
         {step === 1 && (
           <>
-            <p style={styles.text}>Hola, soy Otto.</p>
-            <p style={styles.text}>
-              Estoy acá para acompañarte y ayudarte a crecer.
-            </p>
+            <p style={styles.text}>Hola, soy Otto 👋</p>
+            <p style={styles.text}>¿Cómo te llamás?</p>
             <input
               style={styles.input}
-              placeholder="¿Cómo te llamás?"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Tu nombre"
             />
-            <button style={styles.button} onClick={saveName}>
+            <button
+              style={styles.button}
+              onClick={() => setStep(2)}
+            >
               Continuar
             </button>
           </>
@@ -66,29 +62,37 @@ export default function Home() {
 
         {step === 2 && (
           <>
-            <p style={styles.text}>Hola {name} 👋</p>
-            <p style={styles.text}>
-              A partir de ahora voy a acompañarte en tu camino laboral.
-            </p>
-            <button style={styles.button} onClick={next}>
-              Seguir
+            <p style={styles.text}>Encantado, {name}.</p>
+            <p style={styles.text}>¿Qué te gustaría lograr?</p>
+            <input
+              style={styles.input}
+              placeholder="Ej: conseguir mi primer trabajo"
+              onChange={(e) => setGoal(e.target.value)}
+            />
+            <button
+              style={styles.button}
+              onClick={() => {
+                const lvl = calculateLevel(goal);
+                setLevel(lvl);
+                saveData({ name, goal, level: lvl });
+                setStep(3);
+              }}
+            >
+              Continuar
             </button>
           </>
         )}
 
         {step === 3 && (
           <>
+            <p style={styles.text}>Perfecto, {name}.</p>
             <p style={styles.text}>
-              Vamos a trabajar sobre:
+              Detecté que tu nivel es:
             </p>
-            <ul style={styles.list}>
-              <li>✔ Comunicación</li>
-              <li>✔ Organización</li>
-              <li>✔ Objetivos</li>
-              <li>✔ Crecimiento profesional</li>
-            </ul>
-            <button style={styles.button} onClick={next}>
-              Continuar
+            <h2 style={styles.level}>{level}</h2>
+
+            <button style={styles.button} onClick={() => setStep(4)}>
+              Ver mi camino
             </button>
           </>
         )}
@@ -96,10 +100,18 @@ export default function Home() {
         {step === 4 && (
           <>
             <p style={styles.text}>
-              Cuando quieras, empezamos.
+              Este será tu recorrido personalizado:
             </p>
+
+            <ul style={styles.list}>
+              <li>✔ Diagnóstico laboral</li>
+              <li>✔ Organización de objetivos</li>
+              <li>✔ Desarrollo profesional</li>
+              <li>✔ Seguimiento con Otto</li>
+            </ul>
+
             <p style={styles.textSmall}>
-              Este espacio es tuyo.
+              Cuando quieras, seguimos avanzando.
             </p>
           </>
         )}
@@ -108,7 +120,16 @@ export default function Home() {
   );
 }
 
-/* ================== ESTILOS ================== */
+const Progress = ({ step }) => (
+  <div style={styles.progress}>
+    <div
+      style={{
+        ...styles.bar,
+        width: `${(step / 4) * 100}%`,
+      }}
+    />
+  </div>
+);
 
 const styles = {
   container: {
@@ -117,34 +138,30 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    fontFamily: "Arial, sans-serif",
   },
 
   card: {
     background: "#111",
-    color: "#fff",
-    padding: "50px 40px",
+    padding: "50px",
     borderRadius: "20px",
     maxWidth: "520px",
     width: "100%",
+    color: "#fff",
     textAlign: "center",
-    boxShadow: "0 0 60px rgba(0,0,0,0.6)",
   },
 
   title: {
-    fontSize: "2.3rem",
-    marginBottom: "1rem",
+    fontSize: "2.5rem",
   },
 
   text: {
-    fontSize: "1.1rem",
-    marginBottom: "1.3rem",
     color: "#ccc",
+    marginBottom: "1rem",
   },
 
   textSmall: {
-    fontSize: "0.95rem",
     color: "#888",
+    fontSize: "0.9rem",
   },
 
   input: {
@@ -152,20 +169,17 @@ const styles = {
     padding: "14px",
     borderRadius: "10px",
     border: "none",
-    marginBottom: "1.2rem",
+    marginBottom: "1rem",
     background: "#1c1c1c",
     color: "#fff",
-    fontSize: "1rem",
   },
 
   button: {
-    background: "#fff",
-    color: "#000",
-    border: "none",
     padding: "14px 30px",
     borderRadius: "30px",
+    border: "none",
     cursor: "pointer",
-    fontWeight: "600",
+    fontWeight: "bold",
   },
 
   progress: {
@@ -173,10 +187,9 @@ const styles = {
     background: "#222",
     borderRadius: "10px",
     marginBottom: "30px",
-    overflow: "hidden",
   },
 
-  progressBar: {
+  bar: {
     height: "100%",
     background: "#fff",
     transition: "0.4s",
@@ -185,7 +198,11 @@ const styles = {
   list: {
     textAlign: "left",
     color: "#ccc",
-    marginBottom: "20px",
     lineHeight: "1.6",
+  },
+
+  level: {
+    fontSize: "1.6rem",
+    margin: "10px 0",
   },
 };
