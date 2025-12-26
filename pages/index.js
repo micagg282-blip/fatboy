@@ -52,38 +52,14 @@ export default function Home() {
         <div style={{ maxWidth: "700px" }}>
           <h2>Hola {nombre}</h2>
 
-          <p>
-            Antes de avanzar, quiero que pienses un momento en vos dentro del
-            trabajo.
-          </p>
+          <p>Tomate un momento para pensar cómo estás hoy en tu trabajo.</p>
 
-          <p>Respondé con sinceridad:</p>
-
-          <textarea
-            placeholder="¿Cómo te sentís hoy en tu trabajo?"
-            style={{ width: "100%", height: "80px", marginTop: "10px" }}
-          />
-
-          <textarea
-            placeholder="¿Sentís que podés expresarte con libertad?"
-            style={{ width: "100%", height: "80px", marginTop: "20px" }}
-          />
-
-          <textarea
-            placeholder="¿Qué te gustaría mejorar?"
-            style={{ width: "100%", height: "80px", marginTop: "20px" }}
-          />
+          <textarea placeholder="¿Cómo te sentís actualmente?" style={{ width: "100%", height: "80px", marginTop: "15px" }} />
+          <textarea placeholder="¿Qué te gustaría mejorar?" style={{ width: "100%", height: "80px", marginTop: "15px" }} />
 
           <button
             onClick={() => setPaso(3)}
-            style={{
-              marginTop: "30px",
-              background: "#000",
-              color: "#fff",
-              padding: "12px 25px",
-              border: "none",
-              cursor: "pointer",
-            }}
+            style={{ marginTop: "30px", background: "#000", color: "#fff", padding: "12px 25px", border: "none" }}
           >
             Continuar
           </button>
@@ -94,29 +70,39 @@ export default function Home() {
         <div style={{ maxWidth: "700px" }}>
           <h2>Comunicación y vínculos</h2>
 
-          <p style={{ marginTop: "20px" }}>
-            Ahora pensemos en cómo te relacionás con las personas que te rodean.
+          <textarea placeholder="¿Cómo te comunicás con tu equipo?" style={{ width: "100%", height: "80px", marginTop: "15px" }} />
+          <textarea placeholder="¿Sentís que sos escuchado/a?" style={{ width: "100%", height: "80px", marginTop: "15px" }} />
+
+          <button
+            onClick={() => setPaso(4)}
+            style={{ marginTop: "30px", background: "#000", color: "#fff", padding: "12px 25px", border: "none" }}
+          >
+            Continuar
+          </button>
+        </div>
+      )}
+
+      {paso === 4 && (
+        <div style={{ maxWidth: "700px" }}>
+          <h2>Compromiso personal</h2>
+
+          <p>
+            Este es un momento importante.  
+            No se trata de exigirte, sino de elegir conscientemente.
           </p>
 
-          <p>Respondé con calma:</p>
-
           <textarea
-            placeholder="¿Cómo es tu comunicación con tus compañeros?"
-            style={{ width: "100%", height: "80px", marginTop: "10px" }}
+            placeholder="¿Qué podrías hacer vos para mejorar tu día a día laboral?"
+            style={{ width: "100%", height: "80px", marginTop: "15px" }}
           />
 
           <textarea
-            placeholder="¿Sentís que sos escuchado/a?"
-            style={{ width: "100%", height: "80px", marginTop: "20px" }}
-          />
-
-          <textarea
-            placeholder="¿Qué te gustaría cambiar en la forma de comunicarte?"
-            style={{ width: "100%", height: "80px", marginTop: "20px" }}
+            placeholder="¿Qué compromiso personal podés asumir?"
+            style={{ width: "100%", height: "80px", marginTop: "15px" }}
           />
 
           <p style={{ marginTop: "30px" }}>
-            Gracias por tomarte este espacio.
+            Gracias por tomarte este tiempo.
           </p>
 
           <p style={{ fontStyle: "italic", marginTop: "20px" }}>
