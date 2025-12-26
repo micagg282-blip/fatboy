@@ -5,42 +5,43 @@ export default function Dashboard() {
   const [level, setLevel] = useState(1);
 
   useEffect(() => {
-    const storedName = localStorage.getItem("userName");
-    const storedLevel = localStorage.getItem("level");
-
-    if (storedName) setName(storedName);
-    if (storedLevel) setLevel(Number(storedLevel));
+    const n = localStorage.getItem("userName");
+    const l = localStorage.getItem("level");
+    if (n) setName(n);
+    if (l) setLevel(Number(l));
   }, []);
 
   const nextLevel = () => {
     const newLevel = level + 1;
     setLevel(newLevel);
-    localStorage.setItem("level", newLevel.toString());
+    localStorage.setItem("level", newLevel);
+  };
+
+  const messages = {
+    1: `Hola ${name}, soy Otto. Voy a acompañarte en este proceso.`,
+    2: "Este nivel es para entender qué querés mejorar.",
+    3: "Ahora empezamos a trabajar en tus objetivos.",
+    4: "Estás avanzando muy bien. Esto ya es crecimiento real.",
+    5: "Nivel completo. Estás listo para el siguiente paso."
   };
 
   return (
     <div className="container">
-      <h1>Hola {name}</h1>
+      <h1>FATBOY</h1>
 
-      <p>
-        Soy Otto. Estás en el nivel <strong>{level}</strong>.
+      <p className="subtitle">
+        Plataforma de desarrollo personal y enfoque mental
       </p>
 
-      <p>
-        Cada nivel te va a ayudar a entenderte mejor y avanzar.
-      </p>
+      <div className="card">
+        <h2>👤 Hola {name}</h2>
+        <p><strong>Nivel actual:</strong> {level}</p>
 
-      <button className="button" onClick={nextLevel}>
-        Completar nivel
-      </button>
+        <p className="otto">{messages[level]}</p>
 
-      <div className="otto">
-        <p>
-          {level === 1 && "Empezamos por conocerte."}
-          {level === 2 && "Ahora vamos a profundizar."}
-          {level === 3 && "Estás avanzando muy bien."}
-          {level >= 4 && "Estás listo para el siguiente paso."}
-        </p>
+        <button className="button" onClick={nextLevel}>
+          Completar nivel
+        </button>
       </div>
     </div>
   );

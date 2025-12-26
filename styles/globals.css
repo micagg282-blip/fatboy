@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: #0e0e0e;
+  background: #0f0f0f;
   color: white;
 }
 
@@ -9,36 +9,46 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 40px;
 }
 
 h1 {
-  font-size: 48px;
-  margin-bottom: 10px;
+  font-size: 3rem;
+  margin-bottom: 0;
 }
 
-p {
-  max-width: 600px;
-  line-height: 1.6;
-  opacity: 0.9;
+.subtitle {
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
 
 .button {
-  margin-top: 30px;
-  padding: 14px 30px;
-  background: white;
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: #ffffff;
   color: black;
   border: none;
   border-radius: 6px;
-  font-size: 16px;
   cursor: pointer;
+  font-weight: bold;
+}
+
+.button:hover {
+  background: #ddd;
 }
 
 .otto {
-  margin-top: 40px;
+  margin-top: 15px;
   font-style: italic;
-  opacity: 0.8;
+  color: #ccc;
 }
