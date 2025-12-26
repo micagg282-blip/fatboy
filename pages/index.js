@@ -5,11 +5,23 @@ export default function Home() {
   const [name, setName] = useState("");
   const [answer, setAnswer] = useState("");
 
-  const preguntas = [
-    "¿Cómo te sentís hoy en tu trabajo?",
-    "¿Qué es lo que más te cuesta en este momento?",
-    "¿Qué te gustaría que mejore en tu día a día laboral?",
-    "¿Qué esperás encontrar en este espacio?",
+  const levels = [
+    {
+      title: "Conocerte",
+      question: "¿Cómo te sentís hoy en tu trabajo?",
+    },
+    {
+      title: "Conciencia",
+      question: "¿Qué es lo que más te está costando últimamente?",
+    },
+    {
+      title: "Reflexión",
+      question: "¿Qué te gustaría que mejore en tu día a día laboral?",
+    },
+    {
+      title: "Compromiso",
+      question: "¿Qué pequeño cambio podrías intentar esta semana?",
+    },
   ];
 
   return (
@@ -22,16 +34,21 @@ export default function Home() {
               Espacio de acompañamiento laboral
             </p>
             <p style={styles.text}>
-              Hola, soy Otto. Estoy acá para ayudarte 🤍
+              Este espacio fue creado para acompañarte, ayudarte a pensar
+              y crecer dentro de tu trabajo.
             </p>
             <button style={styles.button} onClick={() => setStep(1)}>
-              Empezar
+              Comenzar
             </button>
           </>
         )}
 
         {step === 1 && (
           <>
+            <p style={styles.text}>
+              Hola, soy Otto 🤍 <br />
+              Estoy acá para acompañarte.
+            </p>
             <p style={styles.text}>¿Cómo te llamás?</p>
             <input
               style={styles.input}
@@ -48,11 +65,13 @@ export default function Home() {
           </>
         )}
 
-        {step >= 2 && step < preguntas.length + 2 && (
+        {step >= 2 && step < levels.length + 2 && (
           <>
-            <h2 style={styles.title}>Hola {name} 🤍</h2>
+            <h2 style={styles.title}>
+              Hola {name} 🤍
+            </h2>
             <p style={styles.text}>
-              {preguntas[step - 2]}
+              {levels[step - 2].question}
             </p>
             <input
               style={styles.input}
@@ -72,17 +91,18 @@ export default function Home() {
           </>
         )}
 
-        {step === preguntas.length + 2 && (
+        {step === levels.length + 2 && (
           <>
-            <h2 style={styles.title}>Gracias por compartir 🤍</h2>
+            <h2 style={styles.title}>Gracias 🤍</h2>
             <p style={styles.text}>
               Lo que escribiste es importante.
             </p>
             <p style={styles.text}>
-              Este espacio está pensado para acompañarte, sin juicios.
+              Este espacio está pensado para acompañarte,
+              sin juicios y a tu ritmo.
             </p>
             <p style={styles.text}>
-              Cuando quieras, podemos seguir.
+              Podés volver cuando lo necesites.
             </p>
           </>
         )}
