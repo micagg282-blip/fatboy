@@ -1,49 +1,31 @@
 import { useState } from "react";
 
-const preguntas = [
-  {
-    texto: "Para empezar… ¿cómo te sentís hoy en tu trabajo?",
-    placeholder: "Podés escribir lo que sientas",
-  },
-  {
-    texto: "¿Qué es lo que más te cuesta en este momento?",
-    placeholder: "Ej: estrés, motivación, comunicación…",
-  },
-  {
-    texto: "¿Qué te gustaría que cambie o mejore?",
-    placeholder: "No tiene que ser algo perfecto",
-  },
-  {
-    texto: "¿Qué esperás encontrar en este espacio?",
-    placeholder: "Estoy acá para acompañarte",
-  },
-];
-
 export default function Home() {
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
-  const [answers, setAnswers] = useState([]);
-  const [input, setInput] = useState("");
+  const [answer, setAnswer] = useState("");
 
-  const handleNext = () => {
-    if (!input) return;
-
-    setAnswers([...answers, input]);
-    setInput("");
-    setStep(step + 1);
-  };
+  const preguntas = [
+    "¿Cómo te sentís hoy en tu trabajo?",
+    "¿Qué es lo que más te cuesta en este momento?",
+    "¿Qué te gustaría que mejore en tu día a día laboral?",
+    "¿Qué esperás encontrar en este espacio?",
+  ];
 
   return (
     <main style={styles.container}>
       <div style={styles.card}>
         {step === 0 && (
           <>
-            <h1 style={styles.title}>Hola 🌿</h1>
+            <h1 style={styles.title}>Fatboy</h1>
             <p style={styles.text}>
-              Soy Otto. Estoy acá para acompañarte.
+              Espacio de acompañamiento laboral
+            </p>
+            <p style={styles.text}>
+              Hola, soy Otto. Estoy acá para ayudarte 🤍
             </p>
             <button style={styles.button} onClick={() => setStep(1)}>
-              Continuar
+              Empezar
             </button>
           </>
         )}
@@ -61,7 +43,7 @@ export default function Home() {
               style={styles.button}
               onClick={() => name && setStep(2)}
             >
-              Empezar
+              Continuar
             </button>
           </>
         )}
@@ -70,15 +52,21 @@ export default function Home() {
           <>
             <h2 style={styles.title}>Hola {name} 🤍</h2>
             <p style={styles.text}>
-              {preguntas[step - 2].texto}
+              {preguntas[step - 2]}
             </p>
             <input
               style={styles.input}
-              placeholder={preguntas[step - 2].placeholder}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
+              placeholder="Podés escribir con libertad"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
             />
-            <button style={styles.button} onClick={handleNext}>
+            <button
+              style={styles.button}
+              onClick={() => {
+                setAnswer("");
+                setStep(step + 1);
+              }}
+            >
               Continuar
             </button>
           </>
@@ -86,13 +74,15 @@ export default function Home() {
 
         {step === preguntas.length + 2 && (
           <>
-            <h2 style={styles.title}>Gracias por compartir 💛</h2>
+            <h2 style={styles.title}>Gracias por compartir 🤍</h2>
             <p style={styles.text}>
-              Lo que escribiste es importante.  
-              Estoy acá para acompañarte paso a paso.
+              Lo que escribiste es importante.
             </p>
             <p style={styles.text}>
-              Cuando quieras, podemos seguir trabajando juntos.
+              Este espacio está pensado para acompañarte, sin juicios.
+            </p>
+            <p style={styles.text}>
+              Cuando quieras, podemos seguir.
             </p>
           </>
         )}
@@ -115,7 +105,7 @@ const styles = {
     color: "#fff",
     padding: "40px",
     borderRadius: "16px",
-    maxWidth: "480px",
+    maxWidth: "500px",
     width: "100%",
     textAlign: "center",
     boxShadow: "0 0 40px rgba(0,0,0,0.4)",
