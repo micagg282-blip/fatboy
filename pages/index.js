@@ -1,66 +1,99 @@
+import { useState } from "react";
+
 export default function Home() {
-  const nombre = "Micaela"; // después esto será automático
+  const [nombre, setNombre] = useState("");
+  const [iniciado, setIniciado] = useState(false);
 
   return (
     <main
       style={{
         minHeight: "100vh",
         backgroundColor: "#ffffff",
-        color: "#000000",
+        color: "#000",
         fontFamily: "Arial, sans-serif",
         padding: "60px 40px",
         display: "flex",
-        flexDirection: "column",
         justifyContent: "center",
-        maxWidth: "900px",
-        margin: "0 auto",
+        alignItems: "center",
       }}
     >
-      <h1 style={{ fontSize: "48px", marginBottom: "10px" }}>
-        Fatboy
-      </h1>
+      {!iniciado ? (
+        <div style={{ maxWidth: "500px" }}>
+          <h1 style={{ fontSize: "42px" }}>Fatboy</h1>
+          <h2 style={{ fontWeight: "400", marginBottom: "40px" }}>
+            Espacio de acompañamiento laboral
+          </h2>
 
-      <h2 style={{ fontSize: "22px", fontWeight: "400", marginBottom: "40px" }}>
-        Espacio de acompañamiento laboral
-      </h2>
+          <p style={{ fontSize: "18px", marginBottom: "20px" }}>
+            Hola, soy Otto.
+          </p>
 
-      <p style={{ fontSize: "20px", marginBottom: "20px" }}>
-        Hola {nombre}, soy Otto.
-      </p>
+          <p style={{ marginBottom: "20px" }}>
+            ¿Cómo te llamás?
+          </p>
 
-      <p style={{ fontSize: "18px", lineHeight: "1.6", marginBottom: "20px" }}>
-        Estoy acá para acompañarte en tu camino laboral.
-        Este espacio fue creado para que puedas pensar, ordenar ideas
-        y crecer con más claridad y tranquilidad.
-      </p>
+          <input
+            type="text"
+            placeholder="Escribí tu nombre"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            style={{
+              padding: "10px",
+              fontSize: "16px",
+              width: "100%",
+              marginBottom: "20px",
+            }}
+          />
 
-      <p style={{ fontSize: "18px", lineHeight: "1.6", marginBottom: "20px" }}>
-        No es una evaluación.  
-        No es un control.  
-        Es un espacio seguro, personal y a tu ritmo.
-      </p>
+          <button
+            onClick={() => setIniciado(true)}
+            style={{
+              backgroundColor: "#000",
+              color: "#fff",
+              border: "none",
+              padding: "12px 25px",
+              cursor: "pointer",
+            }}
+          >
+            Entrar
+          </button>
+        </div>
+      ) : (
+        <div style={{ maxWidth: "700px" }}>
+          <h1>Hola {nombre} 👋</h1>
 
-      <p style={{ fontSize: "18px", lineHeight: "1.6", marginBottom: "40px" }}>
-        Cuando quieras, podés empezar.
-      </p>
+          <p style={{ fontSize: "18px", marginTop: "20px" }}>
+            Soy Otto.  
+            Estoy acá para acompañarte en tu camino laboral.
+          </p>
 
-      <button
-        style={{
-          backgroundColor: "#000",
-          color: "#fff",
-          border: "none",
-          padding: "15px 30px",
-          fontSize: "16px",
-          cursor: "pointer",
-          width: "fit-content",
-        }}
-      >
-        Comenzar
-      </button>
+          <p style={{ fontSize: "18px", marginTop: "20px" }}>
+            Este espacio es personal, confidencial y a tu ritmo.
+            No hay respuestas correctas, solo procesos.
+          </p>
 
-      <p style={{ marginTop: "60px", fontStyle: "italic" }}>
-        — Otto
-      </p>
+          <p style={{ marginTop: "30px" }}>
+            Cuando estés lista, podemos empezar.
+          </p>
+
+          <button
+            style={{
+              backgroundColor: "#000",
+              color: "#fff",
+              border: "none",
+              padding: "12px 25px",
+              marginTop: "20px",
+              cursor: "pointer",
+            }}
+          >
+            Comenzar mi proceso
+          </button>
+
+          <p style={{ marginTop: "50px", fontStyle: "italic" }}>
+            — Otto
+          </p>
+        </div>
+      )}
     </main>
   );
 }
